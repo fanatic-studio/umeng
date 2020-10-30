@@ -1,7 +1,7 @@
 ## 安装
-``eco plugin install eco/umeng``
+``eco plugin install https://github.com/kjeco/umeng``
 ## 卸载
-``eco plugin uninstall eco/umeng``
+``eco plugin uninstall https://github.com/kjeco/umeng``
 ## 引用
 ```
 //推送模块
