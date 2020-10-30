@@ -1,26 +1,16 @@
-
 //
-//  ecoUmengManager.m
-//  WeexTestDemo
-//
-//  Created by apple on 2018/6/20.
-//  Copyright © 2018年 TomQin. All rights reserved.
+//  eeuiUmengManager.m
 //
 
-#import "ecoUmengManager.h"
+#import "eeuiUmengManager.h"
+#import "eeuiNewPageManager.h"
 #import <UMCommon/UMCommon.h>
 #import <UMAnalytics/MobClick.h>
 #import <UMCommonLog/UMCommonLogHeaders.h>
 
-@interface ecoUmengManager ()
+@implementation eeuiUmengManager
 
-@property(nonatomic,strong) NSMutableDictionary * msgidLists;
-
-@end
-
-@implementation ecoUmengManager
-
-+ (ecoUmengManager *)sharedIntstance {
++ (eeuiUmengManager *)sharedIntstance {
     static dispatch_once_t once;
     static id instance;
     dispatch_once(&once, ^{
@@ -56,46 +46,6 @@
             NSLog(@"===granted==NO==");
         }
     }];
-}
-
-- (void)setNotificationClickHandler:(WXModuleKeepAliveCallback)callback
-{
-    self.callback = callback;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationClick:) name:kUmengNotification object:nil];
-}
-
-- (void)notificationClick:(NSNotification *)notification
-{
-    NSDictionary *data = notification.userInfo;
-    NSString *msgid = data[@"d"]?data[@"d"]:@"";
-    if (_msgidLists == nil) {
-        _msgidLists = [[NSMutableDictionary alloc] init];
-    }
-    if ([msgid isEqualToString:_msgidLists[msgid]]) {
-        return;
-    }
-    [_msgidLists setObject:msgid forKey:msgid];
-    //
-    NSDictionary *alert = data[@"aps"][@"alert"];
-    if ([alert isKindOfClass:[NSDictionary class]]) {
-        NSMutableDictionary *extra = [[NSMutableDictionary alloc] init];
-        for (NSString * key in data) {
-            if (![key isEqualToString:@"aps"] &&
-                ![key isEqualToString:@"d"] &&
-                ![key isEqualToString:@"p"]) {
-                [extra setObject:data[key] forKey:key];
-            }
-        }
-        NSDictionary *result = @{@"status":@"click",
-                                 @"msgid":msgid,
-                                 @"title":alert[@"title"]?alert[@"title"]:@"",
-                                 @"subtitle":alert[@"subtitle"]?alert[@"subtitle"]:@"",
-                                 @"text":alert[@"body"]?alert[@"body"]:@"",
-                                 @"extra":extra,
-                                 @"rawData":data};
-        self.callback(result, YES);
-    }
-
 }
 
 @end
