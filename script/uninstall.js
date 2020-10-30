@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-let androidPath = path.resolve(process.cwd(), 'platforms/android/eeuiApp');
+let androidPath = path.resolve(process.cwd(), 'platforms/android/ecoApp');
 let to = path.resolve(androidPath, 'app/src/main/res/drawable');
 
 let f1 = path.resolve(to, 'umeng_push_notification_default_large_icon.png');

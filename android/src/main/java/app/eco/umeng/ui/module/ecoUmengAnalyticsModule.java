@@ -1,4 +1,4 @@
-package app.eeui.umeng.ui.module;
+package app.eco.umeng.ui.module;
 
 
 import com.alibaba.fastjson.JSONArray;
@@ -14,9 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import app.eeui.framework.extend.base.WXModuleBase;
+import app.eco.framework.extend.base.WXModuleBase;
 
-public class eeuiUmengAnalyticsModule extends WXModuleBase {
+public class ecoUmengAnalyticsModule extends WXModuleBase {
     @JSMethod
     public void onPageStart(String pageName) {
         MobclickAgent.onPageStart(pageName);

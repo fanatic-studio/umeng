@@ -1,4 +1,4 @@
-package app.eeui.umeng.ui.module;
+package app.eco.umeng.ui.module;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -15,24 +15,24 @@ import com.umeng.message.tag.TagManager;
 
 import java.util.List;
 
-import app.eeui.framework.extend.base.WXModuleBase;
-import app.eeui.framework.ui.eeui;
-import app.eeui.umeng.ui.entry.eeuiUmengEntry;
+import app.eco.framework.extend.base.WXModuleBase;
+import app.eco.framework.ui.eco;
+import app.eco.umeng.ui.entry.ecoUmengEntry;
 
-public class eeuiUmengPushModule extends WXModuleBase {
+public class ecoUmengPushModule extends WXModuleBase {
 
     private static Handler mSDKHandler = new Handler(Looper.getMainLooper());
     private PushAgent mPAgent;
     private PushAgent PAgent() {
         if (mPAgent == null) {
-            mPAgent = PushAgent.getInstance(eeui.getApplication());
+            mPAgent = PushAgent.getInstance(eco.getApplication());
         }
         return mPAgent;
     }
 
     @JSMethod(uiThread = false)
     public String deviceToken(){
-        return eeuiUmengEntry.deviceToken;
+        return ecoUmengEntry.deviceToken;
     }
 
     @JSMethod

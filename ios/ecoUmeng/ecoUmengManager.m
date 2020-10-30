@@ -1,16 +1,16 @@
 //
-//  eeuiUmengManager.m
+//  ecoUmengManager.m
 //
 
-#import "eeuiUmengManager.h"
-#import "eeuiNewPageManager.h"
+#import "ecoUmengManager.h"
+#import "ecoNewPageManager.h"
 #import <UMCommon/UMCommon.h>
 #import <UMAnalytics/MobClick.h>
 #import <UMCommonLog/UMCommonLogHeaders.h>
 
-@implementation eeuiUmengManager
+@implementation ecoUmengManager
 
-+ (eeuiUmengManager *)sharedIntstance {
++ (ecoUmengManager *)sharedIntstance {
     static dispatch_once_t once;
     static id instance;
     dispatch_once(&once, ^{

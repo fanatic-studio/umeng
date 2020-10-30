@@ -1,15 +1,15 @@
 //
-//  eeuiUmengPushModule.m
+//  ecoUmengPushModule.m
 //
 
-#import "eeuiUmengPushModule.h"
-#import "eeuiUmengManager.h"
+#import "ecoUmengPushModule.h"
+#import "ecoUmengManager.h"
 #import <UMAnalytics/MobClick.h>
 #import <WeexPluginLoader/WeexPluginLoader.h>
 
-@implementation eeuiUmengPushModule
+@implementation ecoUmengPushModule
 
-WX_PlUGIN_EXPORT_MODULE(eeuiUmengPush, eeuiUmengPushModule)
+WX_PlUGIN_EXPORT_MODULE(ecoUmengPush, ecoUmengPushModule)
 WX_EXPORT_METHOD_SYNC(@selector(deviceToken))
 WX_EXPORT_METHOD(@selector(setDisplayNotificationNumber:))  //仅android
 WX_EXPORT_METHOD(@selector(setNotificaitonOnForeground:))   //仅android
@@ -24,7 +24,7 @@ WX_EXPORT_METHOD(@selector(deleteAlias:type:response:))
 
 - (NSDictionary*)deviceToken
 {
-    return [[eeuiUmengManager sharedIntstance] token];
+    return [[ecoUmengManager sharedIntstance] token];
 }
 
 - (void) setDisplayNotificationNumber:(WXModuleCallback)completion

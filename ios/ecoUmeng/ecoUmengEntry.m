@@ -1,22 +1,22 @@
 //
-//  eeuiUmengEntry.m
+//  ecoUmengEntry.m
 //
 
-#import "eeuiUmengEntry.h"
+#import "ecoUmengEntry.h"
 #import "WeexInitManager.h"
-#import "eeuiUmengManager.h"
-#import "eeuiNewPageManager.h"
+#import "ecoUmengManager.h"
+#import "ecoNewPageManager.h"
 #import "Config.h"
 
-WEEX_PLUGIN_INIT(eeuiUmengEntry)
+WEEX_PLUGIN_INIT(ecoUmengEntry)
 
-@implementation eeuiUmengEntry
+@implementation ecoUmengEntry
 
 + (instancetype)sharedManager {
     static dispatch_once_t onceToken;
-    static eeuiUmengEntry *instance;
+    static ecoUmengEntry *instance;
     dispatch_once(&onceToken, ^{
-        instance = [[eeuiUmengEntry alloc] init];
+        instance = [[ecoUmengEntry alloc] init];
     });
     return instance;
 }
@@ -29,7 +29,7 @@ WEEX_PLUGIN_INIT(eeuiUmengEntry)
     if ([enabled containsString:@"1"] || [enabled containsString:@"true"]) {
         NSString *appKey = [NSString stringWithFormat:@"%@", umeng[@"appKey"]];
         NSString *channel = [NSString stringWithFormat:@"%@", umeng[@"channel"]];
-        [[eeuiUmengManager sharedIntstance] init:appKey channel:channel launchOptions:lanchOption];
+        [[ecoUmengManager sharedIntstance] init:appKey channel:channel launchOptions:lanchOption];
     }
 }
 
@@ -39,13 +39,13 @@ WEEX_PLUGIN_INIT(eeuiUmengEntry)
             stringByReplacingOccurrencesOfString:@">" withString:@""]
             stringByReplacingOccurrencesOfString:@" " withString:@""
     ];
-    [eeuiUmengManager sharedIntstance].token = @{@"status": @"success", @"msg": @"", @"token": token};
-    [[eeuiNewPageManager sharedIntstance] postMessage:@{@"messageType": @"umengToken", @"token": token}];
+    [ecoUmengManager sharedIntstance].token = @{@"status": @"success", @"msg": @"", @"token": token};
+    [[ecoNewPageManager sharedIntstance] postMessage:@{@"messageType": @"umengToken", @"token": token}];
 }
 
 //注册失败
 - (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    [eeuiUmengManager sharedIntstance].token = @{@"status": @"error", @"msg": [error localizedDescription], @"token": @""};
+    [ecoUmengManager sharedIntstance].token = @{@"status": @"error", @"msg": [error localizedDescription], @"token": @""};
 }
 
 //iOS10以下使用这两个方法接收通知，
@@ -115,7 +115,7 @@ WEEX_PLUGIN_INIT(eeuiUmengEntry)
             @"text": alert[@"body"] ? alert[@"body"] : @"",
             @"extra": extra,
             @"rawData": data};
-    [[eeuiNewPageManager sharedIntstance] postMessage:result];
+    [[ecoNewPageManager sharedIntstance] postMessage:result];
 }
 
 @end

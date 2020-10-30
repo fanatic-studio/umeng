@@ -1,14 +1,14 @@
 //
-//  eeuiUmengAnalyticsModule.m
+//  ecoUmengAnalyticsModule.m
 //
 
-#import "eeuiUmengAnalyticsModule.h"
+#import "ecoUmengAnalyticsModule.h"
 #import <UMAnalytics/MobClick.h>
 #import <WeexPluginLoader/WeexPluginLoader.h>
 
-@implementation eeuiUmengAnalyticsModule
+@implementation ecoUmengAnalyticsModule
 
-WX_PlUGIN_EXPORT_MODULE(eeuiUmengAnalytics, eeuiUmengAnalyticsModule)
+WX_PlUGIN_EXPORT_MODULE(ecoUmengAnalytics, ecoUmengAnalyticsModule)
 WX_EXPORT_METHOD(@selector(onPageStart:))
 WX_EXPORT_METHOD(@selector(onPageEnd:))
 WX_EXPORT_METHOD(@selector(onEvent:))

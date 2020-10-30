@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-let androidPath = path.resolve(process.cwd(), 'platforms/android/eeuiApp');
+let androidPath = path.resolve(process.cwd(), 'platforms/android/ecoApp');
 let gradPath = path.resolve(androidPath, 'build.gradle');
 let result = fs.readFileSync(gradPath, 'utf8');
 let values = result.split('\n');
@@ -74,7 +74,7 @@ function _androidGradle() {
         let gradleContent = fs.readFileSync(gradlePath, 'utf8');
         let gradleReg = new RegExp(`manifestPlaceholders\\s*=\\s*\\[([\\s\\S][^\\]]*)\\]\\n*`);
         //
-        let jsonData = require(path.resolve(process.cwd(), 'eeui.config'));
+        let jsonData = require(path.resolve(process.cwd(), 'eco.config'));
         if (!jsonData['umeng'] || typeof jsonData['umeng'] != "object") {
             jsonData['umeng'] = {}
         }

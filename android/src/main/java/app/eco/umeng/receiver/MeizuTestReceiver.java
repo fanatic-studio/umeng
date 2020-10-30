@@ -1,4 +1,4 @@
-package app.eeui.umeng.receiver;
+package app.eco.umeng.receiver;
 
 import org.android.agoo.mezu.MeizuPushReceiver;
 

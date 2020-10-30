@@ -1,4 +1,4 @@
-package app.eeui.umeng.ui.entry;
+package app.eco.umeng.ui.entry;
 
 import android.app.Activity;
 import android.app.Application;
@@ -32,22 +32,22 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import app.eeui.framework.BuildConfig;
-import app.eeui.framework.activity.PageActivity;
-import app.eeui.framework.extend.annotation.ModuleEntry;
-import app.eeui.framework.extend.bean.PageStatus;
-import app.eeui.framework.extend.module.eeuiBase;
-import app.eeui.framework.extend.module.eeuiJson;
-import app.eeui.framework.extend.module.eeuiMap;
-import app.eeui.framework.extend.module.eeuiParse;
-import app.eeui.framework.ui.eeui;
-import app.eeui.umeng.ui.module.eeuiUmengAnalyticsModule;
-import app.eeui.umeng.ui.module.eeuiUmengPushModule;
+import app.eco.framework.BuildConfig;
+import app.eco.framework.activity.PageActivity;
+import app.eco.framework.extend.annotation.ModuleEntry;
+import app.eco.framework.extend.bean.PageStatus;
+import app.eco.framework.extend.module.ecoBase;
+import app.eco.framework.extend.module.ecoJson;
+import app.eco.framework.extend.module.ecoMap;
+import app.eco.framework.extend.module.ecoParse;
+import app.eco.framework.ui.eco;
+import app.eco.umeng.ui.module.ecoUmengAnalyticsModule;
+import app.eco.umeng.ui.module.ecoUmengPushModule;
 
 @ModuleEntry
-public class eeuiUmengEntry {
+public class ecoUmengEntry {
 
-    private static final String TAG = "eeuiUmengPushEntry";
+    private static final String TAG = "ecoUmengPushEntry";
     private JSONObject umengConfig;
 
     public static String deviceToken = "";
@@ -57,15 +57,15 @@ public class eeuiUmengEntry {
      * @param content Application
      */
     public void init(Context content) {
-        umengConfig = eeuiJson.parseObject(eeuiBase.config.getObject("umeng").get("android"));
-        if (eeuiJson.getBoolean(umengConfig, "enabled")) {
+        umengConfig = ecoJson.parseObject(ecoBase.config.getObject("umeng").get("android"));
+        if (ecoJson.getBoolean(umengConfig, "enabled")) {
             initUmeng(content);
         }
 
         //注册weex模块
         try {
-            WXSDKEngine.registerModule("eeuiUmengPush", eeuiUmengPushModule.class);
-            WXSDKEngine.registerModule("eeuiUmengAnalytics", eeuiUmengAnalyticsModule.class);
+            WXSDKEngine.registerModule("ecoUmengPush", ecoUmengPushModule.class);
+            WXSDKEngine.registerModule("ecoUmengAnalytics", ecoUmengAnalyticsModule.class);
         } catch (WXException e) {
             e.printStackTrace();
         }
@@ -78,7 +78,7 @@ public class eeuiUmengEntry {
         // 参数三：渠道名称；
         // 参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
         // 参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
-        UMConfigure.init(content, eeuiJson.getString(umengConfig, "appKey"), eeuiJson.getString(umengConfig, "channel"), UMConfigure.DEVICE_TYPE_PHONE, eeuiJson.getString(umengConfig, "messageSecret"));
+        UMConfigure.init(content, ecoJson.getString(umengConfig, "appKey"), ecoJson.getString(umengConfig, "channel"), UMConfigure.DEVICE_TYPE_PHONE, ecoJson.getString(umengConfig, "messageSecret"));
         UMConfigure.setLogEnabled(BuildConfig.DEBUG); //开启日志
 
         //获取消息推送代理示例
@@ -91,7 +91,7 @@ public class eeuiUmengEntry {
             public void onSuccess(String deviceToken) {
                 //注册成功会返回deviceToken deviceToken是推送消息的唯一标志
                 Log.i(TAG, "注册成功：deviceToken：-------->  " + deviceToken);
-                eeuiUmengEntry.deviceToken = deviceToken;
+                ecoUmengEntry.deviceToken = deviceToken;
                 JSONObject object = new JSONObject();
                 object.put("messageType", "umengToken");
                 object.put("token", deviceToken);
@@ -101,7 +101,7 @@ public class eeuiUmengEntry {
             @Override
             public void onFailure(String s, String s1) {
                 Log.e(TAG, "注册失败：-------->  " + "s:" + s + ",s1:" + s1);
-                eeuiUmengEntry.deviceToken = "";
+                ecoUmengEntry.deviceToken = "";
             }
         });
         //打开通知动作
@@ -116,7 +116,7 @@ public class eeuiUmengEntry {
                 Activity mActivity = null;
                 Intent intent;
                 try {
-                    LinkedList<Activity> mLinkedList = eeui.getActivityList();
+                    LinkedList<Activity> mLinkedList = eco.getActivityList();
                     mActivity = mLinkedList.getLast();
                 } catch (NoSuchElementException ignored) { }
                 if (mActivity != null) {
@@ -134,15 +134,15 @@ public class eeuiUmengEntry {
         /**
          * 初始化厂商通道
          */
-        String xiaomiAppId = eeuiJson.getString(umengConfig, "xiaomiAppId");
-        String xiaomiAppKey = eeuiJson.getString(umengConfig, "xiaomiAppKey");
-        String huaweiAppId = eeuiJson.getString(umengConfig, "huaweiAppId");
-        String meizuAppId = eeuiJson.getString(umengConfig, "meizuAppId");
-        String meizuAppKey = eeuiJson.getString(umengConfig, "meizuAppKey");
-        String oppoAppKey = eeuiJson.getString(umengConfig, "oppoAppKey");
-        String oppoAppSecret = eeuiJson.getString(umengConfig, "oppoAppSecret");
-        String vivoAppId = eeuiJson.getString(umengConfig, "vivoAppId");
-        String vivoAppKey = eeuiJson.getString(umengConfig, "vivoAppKey");
+        String xiaomiAppId = ecoJson.getString(umengConfig, "xiaomiAppId");
+        String xiaomiAppKey = ecoJson.getString(umengConfig, "xiaomiAppKey");
+        String huaweiAppId = ecoJson.getString(umengConfig, "huaweiAppId");
+        String meizuAppId = ecoJson.getString(umengConfig, "meizuAppId");
+        String meizuAppKey = ecoJson.getString(umengConfig, "meizuAppKey");
+        String oppoAppKey = ecoJson.getString(umengConfig, "oppoAppKey");
+        String oppoAppSecret = ecoJson.getString(umengConfig, "oppoAppSecret");
+        String vivoAppId = ecoJson.getString(umengConfig, "vivoAppId");
+        String vivoAppKey = ecoJson.getString(umengConfig, "vivoAppKey");
         //小米通道
         if (!TextUtils.isEmpty(xiaomiAppId)) {
             MiPushRegistar.register(content, xiaomiAppId, xiaomiAppKey);
@@ -169,26 +169,26 @@ public class eeuiUmengEntry {
     }
 
     private void clickHandleMessage(UMessage uMessage) throws JSONException {
-        Map<String, Object> temp = eeuiMap.jsonToMap(uMessage.getRaw());
-        Map<String, Object> body = eeuiMap.objectToMap(temp.get("body"));
-        Map<String, Object> extra = eeuiMap.objectToMap(temp.get("extra"));
+        Map<String, Object> temp = ecoMap.jsonToMap(uMessage.getRaw());
+        Map<String, Object> body = ecoMap.objectToMap(temp.get("body"));
+        Map<String, Object> extra = ecoMap.objectToMap(temp.get("extra"));
         if (body == null) {
             return;
         }
         JSONObject object = new JSONObject();
         object.put("messageType", "notificationClick");
         object.put("status", "click");
-        object.put("msgid", eeuiParse.parseStr(body.get("msg_id")));
-        object.put("title", eeuiParse.parseStr(body.get("title")));
+        object.put("msgid", ecoParse.parseStr(body.get("msg_id")));
+        object.put("title", ecoParse.parseStr(body.get("title")));
         object.put("subtitle", "");
-        object.put("text", eeuiParse.parseStr(body.get("text")));
+        object.put("text", ecoParse.parseStr(body.get("text")));
         object.put("extra", extra != null ? extra : new HashMap<>());
         object.put("rawData", temp);
         postMessage(object);
     }
 
     public void postMessage(Object message) {
-        LinkedList<Activity> activityList = eeui.getActivityList();
+        LinkedList<Activity> activityList = eco.getActivityList();
         for (Activity mContext : activityList) {
             if (mContext instanceof PageActivity) {
                 ((PageActivity) mContext).onAppStatusListener(new PageStatus("page", "message", null, message));

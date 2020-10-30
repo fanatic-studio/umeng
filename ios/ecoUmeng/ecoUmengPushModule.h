@@ -1,10 +1,10 @@
 //
-//  eeuiUmengPushModule.h
+//  ecoUmengPushModule.h
 //
 
 #import <Foundation/Foundation.h>
 #import "WeexSDK.h"
 
-@interface eeuiUmengPushModule : NSObject <WXModuleProtocol>
+@interface ecoUmengPushModule : NSObject <WXModuleProtocol>
 
 @end
