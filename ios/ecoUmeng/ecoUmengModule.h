@@ -1,5 +1,5 @@
 //
-//  vdUmengModule.h
+//  ecoUmengModule.h
 //  WeexTestDemo
 //
 //  Created by apple on 2018/6/19.
@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "WeexSDK.h"
 
-@interface vdUmengModule : NSObject <WXModuleProtocol>
+@interface ecoUmengModule : NSObject <WXModuleProtocol>
 
 @end

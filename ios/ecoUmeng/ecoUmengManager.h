@@ -1,5 +1,5 @@
 //
-//  vdUmengManager.h
+//  ecoUmengManager.h
 //  WeexTestDemo
 //
 //  Created by apple on 2018/6/20.
@@ -12,12 +12,12 @@
 
 #define kUmengNotification @"kUmengNotification"
 
-@interface vdUmengManager : NSObject
+@interface ecoUmengManager : NSObject
 
 @property (nonatomic, strong) NSDictionary *token;
 @property (nonatomic, copy) WXModuleKeepAliveCallback callback;
 
-+ (vdUmengManager *)sharedIntstance;
++ (ecoUmengManager *)sharedIntstance;
 
 - (void)init:(NSString*)key channel:(NSString*)channel launchOptions:(NSDictionary*)launchOptions;
 

@@ -1,26 +1,26 @@
 
 //
-//  vdUmengManager.m
+//  ecoUmengManager.m
 //  WeexTestDemo
 //
 //  Created by apple on 2018/6/20.
 //  Copyright © 2018年 TomQin. All rights reserved.
 //
 
-#import "vdUmengManager.h"
+#import "ecoUmengManager.h"
 #import <UMCommon/UMCommon.h>
 #import <UMAnalytics/MobClick.h>
 #import <UMCommonLog/UMCommonLogHeaders.h>
 
-@interface vdUmengManager ()
+@interface ecoUmengManager ()
 
 @property(nonatomic,strong) NSMutableDictionary * msgidLists;
 
 @end
 
-@implementation vdUmengManager
+@implementation ecoUmengManager
 
-+ (vdUmengManager *)sharedIntstance {
++ (ecoUmengManager *)sharedIntstance {
     static dispatch_once_t once;
     static id instance;
     dispatch_once(&once, ^{

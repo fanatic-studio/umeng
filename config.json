@@ -1,6 +1,6 @@
 {
 	"desc": "友盟推送模块",
-	"requireFormatName": "vdUmeng",
-	"requireName": "vd/umeng",
+	"requireFormatName": "ecoUmeng",
+	"requireName": "eco/umeng",
 	"title": "友盟推送模块"
 }

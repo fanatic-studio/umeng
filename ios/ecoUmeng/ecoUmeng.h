@@ -1,6 +1,6 @@
 //
-//  vdUmeng.h
-//  vdUmeng
+//  ecoUmeng.h
+//  ecoUmeng
 //
 //  Created by 高一 on 2019/3/1.
 //
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface vdUmeng : NSObject
+@interface ecoUmeng : NSObject
 
 + (instancetype)sharedManager;
 

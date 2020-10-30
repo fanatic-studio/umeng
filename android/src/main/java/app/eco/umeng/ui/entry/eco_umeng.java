@@ -1,4 +1,4 @@
-package app.vd.umeng.ui.entry;
+package app.eco.umeng.ui.entry;
 
 import android.app.Activity;
 import android.app.Application.ActivityLifecycleCallbacks;
@@ -25,21 +25,21 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import app.vd.framework.BuildConfig;
-import app.vd.framework.extend.annotation.ModuleEntry;
-import app.vd.framework.extend.module.vdBase;
-import app.vd.framework.extend.module.vdCommon;
-import app.vd.framework.extend.module.vdJson;
-import app.vd.framework.extend.module.vdMap;
-import app.vd.framework.extend.module.vdParse;
-import app.vd.framework.ui.vd;
-import app.vd.umeng.ui.module.vdUmengModule;
+import app.eco.framework.BuildConfig;
+import app.eco.framework.extend.annotation.ModuleEntry;
+import app.eco.framework.extend.module.ecoBase;
+import app.eco.framework.extend.module.ecoCommon;
+import app.eco.framework.extend.module.ecoJson;
+import app.eco.framework.extend.module.ecoMap;
+import app.eco.framework.extend.module.ecoParse;
+import app.eco.framework.ui.eco;
+import app.eco.umeng.ui.module.ecoUmengModule;
 
 /**
  * Created by WDM on 2018/3/27.
  */
 @ModuleEntry
-public class vd_umeng {
+public class eco_umeng {
 
     private static boolean isRegister = false;
 
@@ -48,15 +48,15 @@ public class vd_umeng {
      * @param content
      */
     public void init(Context content) {
-        JSONObject umeng = vdJson.parseObject(vdBase.config.getObject("umeng").get("android"));
-        if (vdJson.getBoolean(umeng, "enabled")) {
-            vd_umeng.init(vdJson.getString(umeng, "appKey"), vdJson.getString(umeng, "messageSecret"), vdJson.getString(umeng, "channel"));
+        JSONObject umeng = ecoJson.parseObject(ecoBase.config.getObject("umeng").get("android"));
+        if (ecoJson.getBoolean(umeng, "enabled")) {
+            eco_umeng.init(ecoJson.getString(umeng, "appKey"), ecoJson.getString(umeng, "messageSecret"), ecoJson.getString(umeng, "channel"));
         }
         //注册模块
         if (!isRegister) {
             isRegister = true;
             try {
-                WXSDKEngine.registerModule("vdUmeng", vdUmengModule.class);
+                WXSDKEngine.registerModule("ecoUmeng", ecoUmengModule.class);
             } catch (WXException e) {
                 e.printStackTrace();
             }
@@ -67,7 +67,7 @@ public class vd_umeng {
     /****************************************************************************************/
     /****************************************************************************************/
 
-    private static final String TAG = "vd_umeng";
+    private static final String TAG = "eco_umeng";
 
     private static JSONObject umeng_token = new JSONObject();
 
@@ -79,13 +79,13 @@ public class vd_umeng {
 
     public static void init(String key, String secret, String channel) {
         //初始化
-        UMConfigure.init(vd.getApplication(), key, channel, UMConfigure.DEVICE_TYPE_PHONE, secret);
+        UMConfigure.init(eco.getApplication(), key, channel, UMConfigure.DEVICE_TYPE_PHONE, secret);
         UMConfigure.setLogEnabled(BuildConfig.DEBUG);
         //注册统计
-        vd.getApplication().registerActivityLifecycleCallbacks(mCallbacks);
+        eco.getApplication().registerActivityLifecycleCallbacks(mCallbacks);
         //注册推送
-        PushAgent mPushAgent = PushAgent.getInstance(vd.getApplication());
-        mPushAgent.setResourcePackageName(vd.getApplication().getPackageName());
+        PushAgent mPushAgent = PushAgent.getInstance(eco.getApplication());
+        mPushAgent.setResourcePackageName(eco.getApplication().getPackageName());
         mPushAgent.register(new IUmengRegisterCallback() {
             @Override
             public void onSuccess(String deviceToken) {
@@ -111,7 +111,7 @@ public class vd_umeng {
                     e.printStackTrace();
                 }
                 //
-                LinkedList<Activity> mLinkedList = vd.getActivityList();
+                LinkedList<Activity> mLinkedList = eco.getActivityList();
                 Activity mActivity = mLinkedList.getLast();
                 if (mActivity != null) {
                     Intent intent = new Intent(context, mActivity.getClass());
@@ -142,27 +142,27 @@ public class vd_umeng {
     }
 
     private static void clickHandleMessage(UMessage uMessage) throws JSONException {
-        mNotificationClickHandler = vdCommon.removeNull(mNotificationClickHandler);
+        mNotificationClickHandler = ecoCommon.removeNull(mNotificationClickHandler);
         if (mNotificationClickHandler.size() == 0) {
             return;
         }
-        LinkedList<Activity> mLinkedList = vd.getActivityList();
+        LinkedList<Activity> mLinkedList = eco.getActivityList();
         for (int i = 0; i < mNotificationClickHandler.size(); i++) {
             notificationClickHandlerBean mBean = mNotificationClickHandler.get(i);
             if (mBean != null) {
                 boolean isCallBack = false;
                 for (int j = 0; j < mLinkedList.size(); j++) {
                     if (mLinkedList.get(j).equals(mBean.context)) {
-                        Map<String, Object> temp = vdMap.jsonToMap(uMessage.getRaw());
-                        Map<String, Object> body = vdMap.objectToMap(temp.get("body"));
-                        Map<String, Object> extra = vdMap.objectToMap(temp.get("extra"));
+                        Map<String, Object> temp = ecoMap.jsonToMap(uMessage.getRaw());
+                        Map<String, Object> body = ecoMap.objectToMap(temp.get("body"));
+                        Map<String, Object> extra = ecoMap.objectToMap(temp.get("extra"));
                         if (body != null) {
                             Map<String, Object> data = new HashMap<>();
                             data.put("status", "click");
-                            data.put("msgid", vdParse.parseStr(body.get("msg_id")));
-                            data.put("title", vdParse.parseStr(body.get("title")));
+                            data.put("msgid", ecoParse.parseStr(body.get("msg_id")));
+                            data.put("title", ecoParse.parseStr(body.get("title")));
                             data.put("subtitle", "");
-                            data.put("text", vdParse.parseStr(body.get("text")));
+                            data.put("text", ecoParse.parseStr(body.get("text")));
                             data.put("extra", extra != null ? extra : new HashMap<>());
                             data.put("rawData", temp);
                             mBean.callback.invokeAndKeepAlive(data);

@@ -1,4 +1,4 @@
-package app.vd.umeng.ui.module;
+package app.eco.umeng.ui.module;
 
 import com.alibaba.fastjson.JSONObject;
 import com.taobao.weex.annotation.JSMethod;
@@ -9,26 +9,26 @@ import com.umeng.analytics.MobclickAgent;
 import java.util.HashMap;
 import java.util.Map;
 
-import app.vd.framework.extend.module.vdJson;
-import app.vd.framework.extend.module.vdMap;
-import app.vd.framework.extend.module.vdParse;
-import app.vd.umeng.ui.entry.vd_umeng;
+import app.eco.framework.extend.module.ecoJson;
+import app.eco.framework.extend.module.ecoMap;
+import app.eco.framework.extend.module.ecoParse;
+import app.eco.umeng.ui.entry.eco_umeng;
 
 
 /**
  * Created by WDM on 2018/3/27.
  */
 
-public class vdUmengModule extends WXModule {
+public class ecoUmengModule extends WXModule {
 
-    private static final String TAG = "vdUmengModule";
+    private static final String TAG = "ecoUmengModule";
 
     /**
      * 获取deviceToken
      */
     @JSMethod(uiThread = false)
     public Object getToken() {
-        return vd_umeng.getToken();
+        return eco_umeng.getToken();
     }
 
     /**
@@ -40,7 +40,7 @@ public class vdUmengModule extends WXModule {
         if (callback == null) {
             return;
         }
-        vd_umeng.addNotificationClickHandler(mWXSDKInstance.getContext(), callback);
+        eco_umeng.addNotificationClickHandler(mWXSDKInstance.getContext(), callback);
     }
 
     /**
@@ -50,10 +50,10 @@ public class vdUmengModule extends WXModule {
      */
     @JSMethod
     public void onEvent(String event, String object) {
-        JSONObject json = vdJson.parseObject(object);
+        JSONObject json = ecoJson.parseObject(object);
         Map<String, String> map = new HashMap<>();
         for (Map.Entry<String, Object> entry : json.entrySet()) {
-            map.put(entry.getKey(), vdParse.parseStr(entry.getValue()));
+            map.put(entry.getKey(), ecoParse.parseStr(entry.getValue()));
         }
         MobclickAgent.onEvent(mWXSDKInstance.getContext(), event, map);
     }

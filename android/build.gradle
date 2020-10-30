@@ -40,5 +40,5 @@ dependencies {
     compileOnly "org.apache.weex:sdk_legacy:${project.weex_sdkLibVersion}"
     compileOnly "com.taobao.android:weexplugin-processor:${project.weex_processorVersion}"
     //
-    compileOnly project(":vd")
+    compileOnly project(":eco")
 }

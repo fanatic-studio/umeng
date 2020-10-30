@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-let androidPath = path.resolve(process.cwd(), 'platforms/android/vdApp');
+let androidPath = path.resolve(process.cwd(), 'platforms/android/ecoApp');
 let gradPath = path.resolve(androidPath, 'build.gradle');
 let result = fs.readFileSync(gradPath, 'utf8');
 let values = result.split('\n');

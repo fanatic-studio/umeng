@@ -1,23 +1,23 @@
 //
-//  vdUmeng.m
-//  vdUmeng
+//  ecoUmeng.m
+//  ecoUmeng
 //
 //  Created by 高一 on 2019/3/1.
 //
 
-#import "vdUmeng.h"
+#import "ecoUmeng.h"
 #import "WeexInitManager.h"
-#import "vdUmengManager.h"
+#import "ecoUmengManager.h"
 #import "Config.h"
 
-WEEX_PLUGIN_INIT(vdUmeng)
-@implementation vdUmeng
+WEEX_PLUGIN_INIT(ecoUmeng)
+@implementation ecoUmeng
 
 + (instancetype) sharedManager {
     static dispatch_once_t onceToken;
-    static vdUmeng *instance;
+    static ecoUmeng *instance;
     dispatch_once(&onceToken, ^{
-        instance = [[vdUmeng alloc] init];
+        instance = [[ecoUmeng alloc] init];
     });
     return instance;
 }
@@ -31,7 +31,7 @@ WEEX_PLUGIN_INIT(vdUmeng)
     if ([enabled containsString:@"1"] || [enabled containsString:@"true"]) {
         NSString *appKey = [NSString stringWithFormat:@"%@", umeng[@"appKey"]];
         NSString *channel = [NSString stringWithFormat:@"%@", umeng[@"channel"]];
-        [[vdUmengManager sharedIntstance] init:appKey channel:channel launchOptions:lanchOption];
+        [[ecoUmengManager sharedIntstance] init:appKey channel:channel launchOptions:lanchOption];
     }
 }
 
@@ -42,13 +42,13 @@ WEEX_PLUGIN_INIT(vdUmeng)
                         stringByReplacingOccurrencesOfString: @">" withString:@""]
                        stringByReplacingOccurrencesOfString: @" " withString:@""
                        ];
-    [vdUmengManager sharedIntstance].token = @{@"status":@"success", @"msg": @"", @"token": token};
+    [ecoUmengManager sharedIntstance].token = @{@"status":@"success", @"msg": @"", @"token": token};
 }
 
 //注册失败
 - (void) didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-    [vdUmengManager sharedIntstance].token = @{@"status":@"error", @"msg": [error localizedDescription], @"token": @""};
+    [ecoUmengManager sharedIntstance].token = @{@"status":@"error", @"msg": [error localizedDescription], @"token": @""};
 }
 
 //iOS10以下使用这两个方法接收通知，

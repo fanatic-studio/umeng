@@ -3,24 +3,24 @@
 ## 安装
 
 ```shell script
-vd plugin install https://github.com/ivde/umeng
+eco plugin install https://github.com/iecoe/umeng
 ```
 
 ## 卸载
 
 ```shell script
-vd plugin uninstall https://github.com/ivde/umeng
+eco plugin uninstall https://github.com/iecoe/umeng
 ```
 
 ## 引用
 
 ```js
-const umeng = app.requireModule("vd/umeng");
+const umeng = app.requireModule("eco/umeng");
 ```
 
 ## 参数配置
 
-请查阅[配置相关](https://vd.app/guide/config.html)
+请查阅[配置相关](https://eco.app/guide/config.html)
 
 ## 获取token
 
